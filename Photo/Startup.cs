@@ -23,7 +23,8 @@ namespace Photo
 
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            if (!roleManager.RoleExists("Administrator")) {  
+            if (!roleManager.RoleExists("Administrator"))
+            {
                 var role = new IdentityRole();                
                 role.Name = "Administrator";       
                 roleManager.Create(role); 

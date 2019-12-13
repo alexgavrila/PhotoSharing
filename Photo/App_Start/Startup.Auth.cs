@@ -55,9 +55,10 @@ namespace Photo
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "574363366710531",
+               appSecret: "71f8b2582d2f2238ed475e6f5163ef0d");
+
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
