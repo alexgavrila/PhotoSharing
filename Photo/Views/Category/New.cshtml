@@ -4,20 +4,21 @@
 }
 
 
-
-<h2>Adaugare Categorie</h2>
-
-@using (Html.BeginForm(actionName: "New", controllerName:"Category"))
-{
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
-    @Html.Label("CategoryName", "Denumire categorie")
+<div class="row justify-content-center text-center">
+    <h2>@ViewBag.Title</h2>
+</div>
+<div class="row justify-content-center text-center">
     <br />
+    @using (Html.BeginForm(actionName: "New", controllerName: "Category"))
+    {
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-    @Html.TextBox("CategoryName", null, new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.CategoryName, "", new { @class = "text-danger" })
-    <br /><br />
+        <br />
 
-    <button class="btn btn-success" type="submit">Adauga categorie</button>
-}
+        @Html.TextBox("CategoryName", null, new { placeholder = "Denumire",@class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CategoryName, "", new { @class = "text-danger" })
+        <br /><br />
 
+        <button class="btn btn-primary rounded-pill" type="submit">Adauga categorie</button>
+    }
+</div>

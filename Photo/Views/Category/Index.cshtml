@@ -10,20 +10,33 @@
 {
     <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
 }
+<div class="row mb-5">
+    <div class="col-md-12">
+        <a class="btn btn-secondary btn-lg rounded-pill" href="/Category/New"><i class="fa fa-plus-circle mr-1"></i>Adauga</a>
+    </div>
+</div>
 
-@foreach (var category in ViewBag.Categories)
-{
-    @Html.Label("CategoryName", "Denumire categorie")
-    <p>@category.CategoryName</p>
-    <a class="btn btn-success" href="/Category/Show/@category.CategoryId">Afisare categorie</a>
-    <a class="btn btn-success" href="/Category/Edit/@category.CategoryId">Editare categorie</a>
-    <br />
-    <hr />
-    <br />
-}
-<br />
-<a class="btn btn-info" href="/Category/New">Adauga o noua categorie</a>
-<br /><br />
-<a class="btn btn-info" href="/Article/Index">Lista articole</a>
-<br />
+<div class="row">
+
+
+    @foreach (var category in ViewBag.Categories)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@category.CategoryName</h5>
+                    <a class="btn btn-secondary rounded-pill" href="/Category/Edit/@category.CategoryId"><i class="fa fa-edit mr-1"></i>Editare categorie</a>
+                    @using (Html.BeginForm(actionName: "Delete", controllerName: "Category",routeValues: new { id = @category.CategoryId }, method:FormMethod.Post,  htmlAttributes: new { @class="d-inline"}))
+                    {
+
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+                        <button class="btn btn-danger rounded-pill" type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge categoria</button>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
 
