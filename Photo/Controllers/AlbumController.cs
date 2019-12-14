@@ -1,8 +1,5 @@
 ﻿using Photo.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Photo.Controllers
@@ -20,7 +17,7 @@ namespace Photo.Controllers
 
         public ActionResult Show()
         {
-            
+
             return RedirectToAction("Index", "Image");
         }
 
@@ -92,7 +89,7 @@ namespace Photo.Controllers
 
 
         [HttpDelete]
-        public ActionResult Delete (int id)
+        public ActionResult Delete(int id)
         {
             Album album = db.Albums.Find(id);
             db.Albums.Remove(album);

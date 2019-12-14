@@ -248,14 +248,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Category\Index.cshtml" />
-    <Content Include="Views\Category\Edit.cshtml" />
-    <Content Include="Views\Category\New.cshtml" />
-    <Content Include="Views\Category\Show.cshtml" />
     <Content Include="Views\Image\Show.cshtml" />
     <Content Include="Views\Image\Index.cshtml" />
     <Content Include="Views\Image\Edit.cshtml" />
     <Content Include="Views\Image\New.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\New.cshtml" />
+    <Content Include="Views\Category\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Album\" />

@@ -1,8 +1,5 @@
 ﻿using Photo.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Photo.Controllers
@@ -53,7 +50,7 @@ namespace Photo.Controllers
         }
 
         [HttpPut]
-        
+
         public ActionResult Edit(int id, Comment requestComment)
         {
             try
@@ -63,7 +60,7 @@ namespace Photo.Controllers
                     Comment comment = db.Comments.Find(id);
                     if (TryUpdateModel(comment))
                     {
-                        
+
                         TempData["message"] = "Comentariu a fost modificat!";
                         db.SaveChanges();
                     }

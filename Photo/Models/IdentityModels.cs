@@ -1,11 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Photo.Models
 {
@@ -14,7 +13,7 @@ namespace Photo.Models
     {
 
         //public DateTime BirthDate { get; set; }
-        
+
         [Column(TypeName = "datetime2")]
         public DateTime BirthDate { get; set; }
         public string Name { get; set; }
@@ -24,7 +23,7 @@ namespace Photo.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
-            
+
             return userIdentity;
         }
 
