@@ -75,3 +75,6 @@ _[Ss]cripts
 *.dot[Cc]over
 
 .vs/
+
+*.mdf
+*.ldf
