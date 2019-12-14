@@ -1,7 +1,30 @@
-﻿
+﻿@model Photo.Models.Category
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editare categorie";
 }
 
-<h2>Edit</h2>
 
+
+
+<div class="row justify-content-center text-center">
+    <h2>@ViewBag.Title</h2>
+</div>
+<div class="row justify-content-center text-center">
+    @using (Html.BeginForm(actionName: "Edit", controllerName: "Category"))
+    {
+        @Html.Hidden("CategoryId", Model.CategoryId)
+
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        @Html.Label("CategoryName", "Denumire categorie")
+        <br />
+        @Html.Editor("CategoryName")
+        @Html.ValidationMessageFor(m => m.CategoryName, "", new { placeholder = "Denumire", @class = "text-danger" })
+        <br />
+        <br />
+
+        <button class="btn btn-primary rounded-pill" type="submit">Modifica categoria</button>
+    }
+</div>

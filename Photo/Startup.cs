@@ -25,25 +25,27 @@ namespace Photo
 
             if (!roleManager.RoleExists("Administrator"))
             {
-                var role = new IdentityRole();                
-                role.Name = "Administrator";       
-                roleManager.Create(role); 
-                var user = new ApplicationUser();     
-                user.UserName = "admin@admin.com";        
-                user.Email = "admin@admin.com"; 
+                var role = new IdentityRole();
+                role.Name = "Administrator";
+                roleManager.Create(role);
+                var user = new ApplicationUser();
+                user.UserName = "admin@admin.com";
+                user.Email = "admin@admin.com";
                 var adminCreated = UserManager.Create(user, "Administrator1!");
-                if (adminCreated.Succeeded) { 
-                    UserManager.AddToRole(user.Id, "Administrator"); 
+                if (adminCreated.Succeeded)
+                {
+                    UserManager.AddToRole(user.Id, "Administrator");
                 }
-            } 
- 
+            }
 
-            if (!roleManager.RoleExists("User")) {   
-                var role = new IdentityRole(); role.Name = "User";   
-                roleManager.Create(role);       
-            } 
- 
-        } 
- 
+
+            if (!roleManager.RoleExists("User"))
+            {
+                var role = new IdentityRole(); role.Name = "User";
+                roleManager.Create(role);
+            }
+
+        }
+
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Photo.Models
 {
@@ -11,7 +8,7 @@ namespace Photo.Models
         [Key]
         public int CommentId { get; set; }
 
-        [Required(ErrorMessage ="Camp obligaoriu")]
+        [Required(ErrorMessage = "Camp obligaoriu")]
         public string Description { get; set; }
 
         public DateTime Date { get; set; }

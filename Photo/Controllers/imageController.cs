@@ -2,6 +2,7 @@
 using Photo.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,7 +32,8 @@ namespace Photo.Controllers
         }
 
 
-        public ActionResult New(){
+        public ActionResult New()
+        {
 
             Image image = new Image();
             image.UserId = User.Identity.GetUserId();
@@ -40,15 +42,17 @@ namespace Photo.Controllers
         }
 
         [HttpPost]
-        public ActionResult New(Image image)
+        public ActionResult New(Image image, HttpPostedFileBase file)
         {
-            image.Categories = GetAllCategories();
+            var fileName = Path.GetFileName(file.FileName);
+            System.Diagnostics.Debug.WriteLine(fileName);
+            System.Diagnostics.Debug.WriteLine(image.Description);
             try
             {
                 if (ModelState.IsValid)
                 {
                     // Protect content from XSS
-                    db.Images.Add(image);
+                    db.Images.Add(image);   
                     db.SaveChanges();
                     TempData["message"] = "Imaginea a fost adaugata!";
                     return RedirectToAction("Index");
@@ -70,7 +74,7 @@ namespace Photo.Controllers
             ViewBag.Image = image;
             image.Categories = GetAllCategories();
 
-            if (image.UserId == User.Identity.GetUserId() ||  User.IsInRole("Administrator"))
+            if (image.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
             {
                 return View(image);
             }
@@ -98,8 +102,8 @@ namespace Photo.Controllers
                     {
                         if (TryUpdateModel(image))
                         {
-                            
-                            
+
+
                             db.SaveChanges();
                             TempData["message"] = "Articolul a fost modificat!";
                         }
