@@ -24,10 +24,10 @@ namespace Photo.Controllers
 
 
 
-        public ActionResult Show()
+        public ActionResult Show(int id)
         {
-
-            return RedirectToAction("Index", "Image");
+            Album album = db.Albums.Find(id);
+            return View(album);
         }
 
 
