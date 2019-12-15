@@ -5,31 +5,48 @@ using System.Web.Mvc;
 
 namespace Photo.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    
     public class CategoryController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Category
         public ActionResult Index()
         {
+
+
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
             }
 
+
+            if (User.IsInRole("Administrator"))
+            {
+                ViewBag.esteAdmin = true;
+            }
+            else
+            {
+                ViewBag.esteAdmin = false;
+            }
+
+
             var categories = from category in db.Categories
                              orderby category.CategoryName
                              select category;
             ViewBag.Categories = categories;
+            
             return View();
         }
 
         public ActionResult Show(int id)
         {
+            
+            
             Category category = db.Categories.Find(id);
             return View(category);
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult New()
         {
             return View();
@@ -57,7 +74,7 @@ namespace Photo.Controllers
                 return View(cat);
             }
         }
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id)
         {
             Category category = db.Categories.Find(id);
@@ -91,6 +108,7 @@ namespace Photo.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete]
         public ActionResult Delete(int id)
         {
