@@ -5,18 +5,15 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right text-light">
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "text-light", title = "Manage" })
-            </li>
-            <li><a class="text-light" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a  class="text-light ml-2  btn btn-outline-secondary" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "text-light", id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "text-light", id = "loginLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "text-light ml-2 nav-link", id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "text-light ml-2 nav-link", id = "loginLink" })</li>
     </ul>
 }
