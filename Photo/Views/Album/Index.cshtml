@@ -1,6 +1,6 @@
-﻿@model Photo.Models.Album
+﻿
 @{
-    ViewBag.Title = "Album";
+    ViewBag.Title = "Lista albume";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -12,17 +12,15 @@
 }
 <div class="row mb-5">
     <div class="col-md-12">
-        <a class="btn btn-secondary btn-lg rounded-pill" href="/Image/New/"><i class="fa fa-plus-circle mr-1"></i>Adauga</a>
+        <a class="btn btn-secondary btn-lg rounded-pill" href="/Album/New"><i class="fa fa-plus-circle mr-1"></i>Adauga</a>
     </div>
 </div>
 
 <div class="row">
 
 
-    @foreach (var poza in Album.Photo)
+    @foreach (var album in ViewBag.Albums)
     {
-
-        <p>@poza.path</p>
         <div class="col-md-4 mb-4">
             <div class="card">
                 <div class="card-body text-center">

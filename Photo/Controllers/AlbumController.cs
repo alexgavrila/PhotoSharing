@@ -1,24 +1,33 @@
 ﻿using Photo.Models;
+using System.Linq;
 using System;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using System.Diagnostics;
 
 namespace Photo.Controllers
 {
     public class AlbumController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: Album
         public ActionResult Index()
         {
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.message = TempData["message"].ToString();
+            }
+            var userCurent = User.Identity.GetUserId();
+            var albums = db.Albums.Include("User").OrderBy(e => e.Name).Where(e => e.UserId == userCurent).ToList();
+            ViewBag.Albums = albums;
             return View();
         }
 
 
 
-        public ActionResult Show()
+        public ActionResult Show(int id)
         {
-
-            return RedirectToAction("Index", "Image");
+            Album album = db.Albums.Find(id);
+            return View(album);
         }
 
 
@@ -30,6 +39,9 @@ namespace Photo.Controllers
         [HttpPost]
         public ActionResult New(Album album)
         {
+            var userCurent = User.Identity.GetUserId();
+            album.UserId = userCurent;
+
             try
             {
                 if (ModelState.IsValid)
@@ -41,6 +53,8 @@ namespace Photo.Controllers
                 }
                 else
                 {
+                    Debug.WriteLine(album.Date);
+
                     return View(album);
                 }
             }

@@ -12,7 +12,7 @@ namespace Photo.Models
         [Required(ErrorMessage = "Campul title este obligatoriu")]
         [MaxLength(40)]
         [MinLength(5, ErrorMessage = "Titlu trebuie sa fie mai mare de 5 caractere")]
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         public DateTime Date { get; set; }
 

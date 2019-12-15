@@ -1,4 +1,5 @@
-﻿
+﻿@model Photo.Models.Image
+
 @{
     ViewBag.Title = "New";
 }
@@ -7,12 +8,23 @@
 
 @using (Html.BeginForm("New", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false)
     <fieldset>
         Select a file <input type="file" name="file" />
     </fieldset>
     @Html.TextArea("Description", null, new { @class = "form-control" })
+    @Html.Hidden("Date", DateTime.Now, new { @class = "form-control" })
+    @Html.Hidden("filePath", "d", new { @class = "form-control" })
+    @Html.HiddenFor(m => m.AlbumId)
+    @Html.HiddenFor(m => m.UserId)
 
-     <input type="submit" value="Upload" />
+
+    <label>Selectati categoria</label>
+
+    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"),
+        "Selectati categoria", new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    <input type="submit" value="Upload" />
 }
 
