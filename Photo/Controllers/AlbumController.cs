@@ -26,7 +26,7 @@ namespace Photo.Controllers
 
         public ActionResult Show(int id)
         {
-            Album album = db.Albums.Find(id);
+            Album album = db.Albums.Include("User").Where(e => e.AlbumId == id).First();
             return View(album);
         }
 

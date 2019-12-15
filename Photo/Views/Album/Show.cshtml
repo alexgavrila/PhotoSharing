@@ -1,23 +1,22 @@
-﻿@model Photo.Models.Category
+﻿@model Photo.Models.Album
 @{
     ViewBag.Title = "Afisare categorie";
 }
 
 <h2>@ViewBag.Title</h2>
 
-<p>@Model.CategoryName</p>
 
-@using (Html.BeginForm(actionName: "Delete", controllerName: "Category", routeValues: new {id = @Model.CategoryId }))
+@foreach (var poza in @Model.Photo)
 {
-
-    @Html.HttpMethodOverride(HttpVerbs.Delete)
-
-    <button class="btn btn-success" type="submit">Sterge categoria</button>
+    <p>@poza.filePath</p>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">@poza.Description</h5>
+                <div class="row">
+                    <img src="@Url.Content(poza.filePath)" style="width:100%;"/>
+                </div>
+            </div>
+        </div>
+    </div>
 }
-    <br />
-    <a class="btn btn-success" href="/Category/Index/">Afisare lista categorii</a>
-
-    <br />
-    <hr />
-    <br />
-

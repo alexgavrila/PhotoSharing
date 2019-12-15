@@ -62,7 +62,7 @@ namespace Photo.Controllers
 
                     string physicalFullPath = Path.Combine(physicalPath, fileName);
                     file.SaveAs(physicalFullPath);
-                    image.filePath = physicalFullPath;
+                    image.filePath = String.Concat("/Uploads/", fileName);
                     db.Images.Add(image);
                     db.SaveChanges();
                     TempData["message"] = "Imaginea a fost adaugata!";
