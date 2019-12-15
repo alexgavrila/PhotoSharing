@@ -2,6 +2,7 @@
 using Photo.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -32,10 +33,13 @@ namespace Photo.Controllers
         }
 
 
-        public ActionResult New()
+        public ActionResult New(int id)
         {
 
             Image image = new Image();
+
+            image.AlbumId = id;
+            image.Categories = GetAllCategories();
             image.UserId = User.Identity.GetUserId();
 
             return View(image);
@@ -44,21 +48,29 @@ namespace Photo.Controllers
         [HttpPost]
         public ActionResult New(Image image, HttpPostedFileBase file)
         {
-            var fileName = Path.GetFileName(file.FileName);
-            System.Diagnostics.Debug.WriteLine(fileName);
-            System.Diagnostics.Debug.WriteLine(image.Description);
+            image.Categories = GetAllCategories();
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid)    // Protect content from XSS
                 {
-                    // Protect content from XSS
-                    db.Images.Add(image);   
+                    var id = Guid.NewGuid().ToString();
+                    var extension = Path.GetExtension(file.FileName);
+                    var fileName = String.Concat(id, extension);
+                    var physicalPath = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(physicalPath))
+                        Directory.CreateDirectory(physicalPath);
+
+                    string physicalFullPath = Path.Combine(physicalPath, fileName);
+                    file.SaveAs(physicalFullPath);
+                    image.filePath = physicalFullPath;
+                    db.Images.Add(image);
                     db.SaveChanges();
                     TempData["message"] = "Imaginea a fost adaugata!";
                     return RedirectToAction("Index");
                 }
                 else
                 {
+
                     return View(image);
                 }
             }
@@ -102,8 +114,6 @@ namespace Photo.Controllers
                     {
                         if (TryUpdateModel(image))
                         {
-
-
                             db.SaveChanges();
                             TempData["message"] = "Articolul a fost modificat!";
                         }

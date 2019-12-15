@@ -1,7 +1,50 @@
-﻿
+﻿@model Photo.Models.Album
 @{
-    ViewBag.Title = "Show";
+    ViewBag.Title = "Album";
 }
 
-<h2>Show</h2>
+<h2>@ViewBag.Title</h2>
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
+}
+<div class="row mb-5">
+    <div class="col-md-12">
+        <a class="btn btn-secondary btn-lg rounded-pill" href="/Image/New/"><i class="fa fa-plus-circle mr-1"></i>Adauga</a>
+    </div>
+</div>
+
+<div class="row">
+
+
+    @foreach (var poza in Album.Photo)
+    {
+
+        <p>@poza.path</p>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@album.Name</h5>
+                    <div class="row">
+                        <div class="col-md-6"><a class="btn btn-primary rounded-pill btn-block" href="/Album/Edit/@album.AlbumId"><i class="fa fa-camera-retro mr-1"></i>Afisare album</a></div>
+                        <div class="col-md-6"><a class="btn btn-secondary rounded-pill btn-block" href="/Image/New/@album.AlbumId"><i class="fa fa-plus-circle mr-1"></i>Adaugare poza</a></div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-md-6"><a class="btn btn-info00 rounded-pill btn-block" href="/Album/Edit/@album.AlbumId"><i class="fa fa-edit mr-1"></i>Editare album</a></div>
+                        <div class="col-md-6">
+                            @using (Html.BeginForm(actionName: "Delete", controllerName: "Album", routeValues: new { id = album.AlbumId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
+                            {
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button class="btn btn-outline-danger rounded-pill btn-block" type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge album</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
 
