@@ -27,6 +27,16 @@ namespace Photo.Controllers
 
         public ActionResult Show(int id)
         {
+
+            if (User.IsInRole("Administrator"))
+            {
+                ViewBag.esteAdmin = true;
+            }
+            else
+            {
+                ViewBag.esteAdmin = false;
+            }
+            ViewBag.utilizatorCurent = User.Identity.GetUserId();
             Album album = db.Albums.Include("User").Where(e => e.AlbumId == id).First();
             return View(album);
         }

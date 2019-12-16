@@ -3,5 +3,40 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Toate pozele</h2>
+
+<div class="row">
+    @foreach (Photo.Models.Image poza in ViewBag.Images)
+    {
+
+        @Html.Partial("PozaInfo", poza)
+    }
+</div>
+
+<div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li>
+                <a href="/Image/Index?page=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= ViewBag.lastPage; i++)
+            {
+                <li><a href="/Image/Index?page=@i">[@(i)] </a></li>
+            }
+            <li>
+                <a href="/Image/Index?page=@(ViewBag.lastPage)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+
+
+
+
 
