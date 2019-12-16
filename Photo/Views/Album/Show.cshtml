@@ -10,17 +10,10 @@
         <a class="btn btn-secondary btn-lg rounded-pill" href="/Image/New/@Model.AlbumId"><i class="fa fa-plus-circle mr-1"></i>Adauga poza</a>
     </div>
 </div>
-@foreach (var poza in @Model.Photo)
+
+
+@foreach (Photo.Models.Image poza in @Model.Photo)
 {
-    <p>@poza.filePath</p>
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">@poza.Description</h5>
-                <div class="row">
-                    <img src="@Url.Content(poza.filePath)" style="width:100%;"/>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    @Html.Partial("PozaInfo", poza)
 }
