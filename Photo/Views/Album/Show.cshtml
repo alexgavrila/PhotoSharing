@@ -11,9 +11,10 @@
     </div>
 </div>
 
+<div class="row">
+    @foreach (Photo.Models.Image poza in @Model.Photo)
+    {
 
-@foreach (Photo.Models.Image poza in @Model.Photo)
-{
-
-    @Html.Partial("PozaInfo", poza)
-}
+        @Html.Partial("PozaInfo", poza)
+    }
+</div>

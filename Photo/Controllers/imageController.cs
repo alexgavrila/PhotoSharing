@@ -66,7 +66,7 @@ namespace Photo.Controllers
                     db.Images.Add(image);
                     db.SaveChanges();
                     TempData["message"] = "Imaginea a fost adaugata!";
-                    return RedirectToAction("Index", "Album");
+                    return RedirectToAction("Show", "Album", new { id = image.AlbumId });
                 }
                 else
                 {

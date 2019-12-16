@@ -3,9 +3,9 @@
 }
 
 
-
-@foreach (Photo.Models.Image poza in @ViewBag.images)
-{
-
-    @Html.Partial("PozaInfo", poza)
-}
+    <div class="row">
+        @foreach (Photo.Models.Image poza in @ViewBag.images)
+        {
+            @Html.Partial("PozaInfo", poza)
+        }
+    </div>
