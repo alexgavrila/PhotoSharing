@@ -29,18 +29,25 @@
                 <div class="card-body text-center">
 
                     <h5 class="card-title">@category.CategoryName</h5>
-                    <a class="btn btn-secondary rounded-pill" href="/Category/Show/@category.CategoryId">Afisare categorie</a>
-
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a class="btn btn-secondary rounded-pill btn-block" href="/Category/Show/@category.CategoryId"><i class="fa fa-camera-retro mr-1"></i>Afisare categorie</a>
+                        </div>
+                    </div>
                     @if (ViewBag.esteAdmin)
                     {
-                        <a class="btn btn-secondary rounded-pill" href="/Category/Edit/@category.CategoryId"><i class="fa fa-edit mr-1"></i>Editare categorie</a>
-                        using (Html.BeginForm(actionName: "Delete", controllerName: "Category", routeValues: new { id = @category.CategoryId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
-                        {
+                        <div class="row mt-1">
+                            <div class="col-md-12">
+                                <a class="btn btn-info rounded-pill " href="/Category/Edit/@category.CategoryId"><i class="fa fa-edit mr-1"></i>Editare categorie</a>
+                                @using (Html.BeginForm(actionName: "Delete", controllerName: "Category", routeValues: new { id = @category.CategoryId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
+                                {
 
-                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                    @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                            <button class="btn btn-danger rounded-pill" type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge categoria</button>
-                        }
+                                    <button class="btn btn-outline-danger rounded-pill " type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge categoria</button>
+                                }
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
