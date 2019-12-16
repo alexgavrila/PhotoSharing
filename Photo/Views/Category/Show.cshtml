@@ -3,16 +3,39 @@
     ViewBag.Title = "Afisare categorie";
 }
 
-<h2>@ViewBag.Title</h2>
-
-<p>@Model.CategoryName</p>
 
 
+<h2>@Model.CategoryName</h2>
 
-    <br />
-    <a class="btn btn-secondary btn-lg rounded-pill" href="/Category/Index/">Afisare lista categorii</a>
 
-    <br />
-    <hr />
-    <br />
+
+<div class="row">
+    @foreach (Photo.Models.Image poza in @ViewBag.images)
+    {
+
+        @Html.Partial("PozaInfo", poza)
+    }
+</div>
+
+
+<br />
+<a class="btn btn-secondary btn-lg rounded-pill" href="/Category/Index/">Afisare lista categorii</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br />
 

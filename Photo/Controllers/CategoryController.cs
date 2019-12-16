@@ -34,15 +34,17 @@ namespace Photo.Controllers
                              orderby category.CategoryName
                              select category;
             ViewBag.Categories = categories;
-            
+
             return View();
         }
 
         public ActionResult Show(int id)
         {
-            
-            
+
+
             Category category = db.Categories.Find(id);
+            ViewBag.images = db.Images.Where(a => a.CategoryId == id).OrderBy(a => a.Date).Take(12);
+
             return View(category);
         }
 
