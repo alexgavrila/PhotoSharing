@@ -19,8 +19,8 @@
         @{
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var currentUser = manager.FindById(User.Identity.GetUserId());
-            <p>@currentUser.Name</p>
-            <p>@currentUser.Text</p>
+            <p>@currentUser.FirstName</p>
+            <p>@currentUser.TextProfil</p>
             <p>@currentUser.BirthDate</p>
         }
 

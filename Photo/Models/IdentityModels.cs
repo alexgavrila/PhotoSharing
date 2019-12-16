@@ -16,8 +16,10 @@ namespace Photo.Models
 
         [Column(TypeName = "datetime2")]
         public DateTime BirthDate { get; set; }
-        public string Name { get; set; }
-        public string Text { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public string TextProfil { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
