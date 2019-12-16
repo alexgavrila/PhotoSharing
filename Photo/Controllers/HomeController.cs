@@ -1,12 +1,21 @@
-﻿using System.Web.Mvc;
+﻿using Photo.Models;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Photo.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+            ViewBag.images = db.Images.Include("Category").Include("User").Include("Album").OrderBy(a => a.Date).Take(10);
+            
             return View();
+
+
+
+
         }
 
         public ActionResult About()
