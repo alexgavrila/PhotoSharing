@@ -54,6 +54,7 @@ namespace Photo.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public ActionResult New(Category cat)
         {

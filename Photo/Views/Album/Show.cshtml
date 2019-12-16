@@ -5,11 +5,25 @@
 
 <h2>@ViewBag.Title</h2>
 
-<div class="row mb-5">
-    <div class="col-md-12">
-        <a class="btn btn-secondary btn-lg rounded-pill" href="/Image/New/@Model.AlbumId"><i class="fa fa-plus-circle mr-1"></i>Adauga poza</a>
+@if (Model.UserId == ViewBag.utilizatorCurent)
+{
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <a class="btn btn-secondary btn-lg rounded-pill" href="/Image/New/@Model.AlbumId"><i class="fa fa-plus-circle mr-1"></i>Adauga poza</a>
+        </div>
     </div>
-</div>
+}
+
+
+@if (ViewBag.esteAdmin && Model.UserId != ViewBag.utilizatorCurent)
+{
+    using (Html.BeginForm(actionName: "Delete", controllerName: "Album", routeValues: new { id = Model.AlbumId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-outline-danger rounded-pill mb-2" type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge album</button>
+    }
+}
+
 
 <div class="row">
     @foreach (Photo.Models.Image poza in @Model.Photo)

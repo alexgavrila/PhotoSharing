@@ -10,15 +10,39 @@ using System.Web.Mvc;
 
 namespace Photo.Controllers
 {
+
     [Authorize]
     public class ImageController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-        private int _photoPage = 10;
+        private int _perPage = 6;
         // GET: Photo
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
+            var images = db.Images.Include("Category").Include("User").OrderBy(a => a.Date);
+            var totalItems = images.Count();
+            var currentPage = Convert.ToInt32(Request.Params.Get("page"));
+
+            var offset = 0;
+
+            if (!currentPage.Equals(0))
+            {
+                offset = (currentPage - 1) * this._perPage;
+            }
+
+            var paginatedImages = images.Skip(offset).Take(this._perPage);
+
+          
+
+            ViewBag.perPage = this._perPage;
+            ViewBag.total = totalItems;
+            ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+            ViewBag.Images = paginatedImages;
+
+
+
+
             return View();
 
         }
@@ -32,7 +56,7 @@ namespace Photo.Controllers
             return View(image);
         }
 
-
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult New(int id)
         {
 
@@ -44,7 +68,7 @@ namespace Photo.Controllers
 
             return View(image);
         }
-
+        [Authorize(Roles = "User,Administrator")]
         [HttpPost]
         public ActionResult New(Image image, HttpPostedFileBase file)
         {
@@ -79,7 +103,7 @@ namespace Photo.Controllers
                 return View(image);
             }
         }
-
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id)
         {
             Image image = db.Images.Find(id);
@@ -140,7 +164,7 @@ namespace Photo.Controllers
 
 
 
-
+        [Authorize(Roles = "User,Administrator")]
 
         [HttpDelete]
         //[Authorize(Roles = "")]
