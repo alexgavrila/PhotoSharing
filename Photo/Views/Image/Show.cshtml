@@ -1,49 +1,65 @@
-﻿@model Photo.Models.Album
+﻿@model Photo.Models.Image
 @{
-    ViewBag.Title = "Album";
+    ViewBag.Title = "Imagine";
 }
-
-<h2>@ViewBag.Title</h2>
 <br />
 
-@if (TempData.ContainsKey("message"))
-{
-    <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
-}
-<div class="row mb-5">
-    <div class="col-md-12">
-        <a class="btn btn-secondary btn-lg rounded-pill" href="/Image/New/"><i class="fa fa-plus-circle mr-1"></i>Adauga</a>
+<div class="row">
+    <div class="col-md-9 offset-md-1">
+        <img src="@Url.Content(Model.filePath)" style="width:100%;" />
     </div>
 </div>
 
 <div class="row">
+    <div class="col-md-7 offset-md-2">
 
-
-    @foreach (var poza in Album.Photo)
-    {
-
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h5 class="card-title">@album.Name</h5>
-                    <div class="row">
-                        <div class="col-md-6"><a class="btn btn-primary rounded-pill btn-block" href="/Album/Show/@album.AlbumId"><i class="fa fa-camera-retro mr-1"></i>Afisare album</a></div>
-                        <div class="col-md-6"><a class="btn btn-secondary rounded-pill btn-block" href="/Image/New/@album.AlbumId"><i class="fa fa-plus-circle mr-1"></i>Adaugare poza</a></div>
-                    </div>
-                    <div class="row mt-1">
-                        <div class="col-md-6"><a class="btn btn-info00 rounded-pill btn-block" href="/Album/Edit/@album.AlbumId"><i class="fa fa-edit mr-1"></i>Editare album</a></div>
-                        <div class="col-md-6">
-                            @using (Html.BeginForm(actionName: "Delete", controllerName: "Album", routeValues: new { id = album.AlbumId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
-                            {
-                                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                <button class="btn btn-outline-danger rounded-pill btn-block" type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge album</button>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-
+        <p>@Model.Description</p>
+    </div>
 </div>
 
+    <h3 class="text-center mt-4">Comentarii</h3>
+    <div class="row">
+        <div class="col-md-5 offset-md-3">
+
+            @using (Html.BeginForm(actionName: "New", controllerName: "Comment", method: FormMethod.Post))
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <br />
+                @Html.TextArea("CommentText", null, new { rows = "3", style = "width:100%; max-width:100%", placeholder = "Comenteaza", @class = "mb-2 rounded-pill  form-control" })
+                @Html.ValidationMessage("CommentText", "", new { @class = "text-danger" })
+                @Html.Hidden("Date", DateTime.Now, new { @class = "form-control" })
+                @Html.Hidden("UserId", (string)ViewBag.utilizatorCurent, new { @class = "form-control" })
+                @Html.Hidden("PhotoId", (int)Model.PhotoId, new { @class = "form-control" })
+
+                <button class="btn rounded-pill btn-primary pull-right" type="submit"><i class="fa fa-comments mr-1"></i>Adauga Comentariu</button>
+            }
+        </div>
+
+    </div>
+
+
+    @foreach (var comment in ViewBag.comments)
+    {
+
+        <div class="row">
+            <div class="col-md-5 offset-md-3">
+                <h4>@comment.User.UserName</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 offset-md-3 p-2">
+                <p>@comment.CommentText</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 offset-md-3  border-bottom border-warning">
+                <p class=" pull-right">@comment.Date</p>
+                @using (Html.BeginForm(actionName: "Delete", controllerName: "Comment", routeValues: new { id = comment.CommentId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
+                {
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn rounded-pill btn-sm btn-outline-danger " type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge Comentariu</button>
+                }
+            </div>
+        </div>
+
+    }

@@ -51,7 +51,7 @@ namespace Photo.Controllers
         {
             Image image = db.Images.Find(id);
             ViewBag.utilizatorCurent = User.Identity.GetUserId();
-
+            ViewBag.comments = db.Comments.Include("User").Where(a => a.PhotoId == id);
 
             return View(image);
         }

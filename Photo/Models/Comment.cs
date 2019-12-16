@@ -9,7 +9,7 @@ namespace Photo.Models
         public int CommentId { get; set; }
 
         [Required(ErrorMessage = "Camp obligaoriu")]
-        public string Description { get; set; }
+        public string CommentText { get; set; }
 
         public DateTime Date { get; set; }
 
