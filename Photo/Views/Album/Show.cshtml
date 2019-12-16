@@ -5,7 +5,11 @@
 
 <h2>@ViewBag.Title</h2>
 
-
+<div class="row mb-5">
+    <div class="col-md-12">
+        <a class="btn btn-secondary btn-lg rounded-pill" href="/Image/New/@Model.AlbumId"><i class="fa fa-plus-circle mr-1"></i>Adauga poza</a>
+    </div>
+</div>
 @foreach (var poza in @Model.Photo)
 {
     <p>@poza.filePath</p>

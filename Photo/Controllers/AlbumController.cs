@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace Photo.Controllers
 {
+    [Authorize(Roles = "User,Administrator")]
     public class AlbumController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
