@@ -28,16 +28,16 @@ namespace Photo.Controllers
                     db.Comments.Add(com);
                     db.SaveChanges();
                     TempData["message"] = "Comentariu a fost adaugat!";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Show", "Image", new { id = com.PhotoId });
                 }
                 else
                 {
-                    return View(com);
+                    return RedirectToAction("Show", "Image", new { id = com.PhotoId});
                 }
             }
             catch (Exception e)
             {
-                return View(com);
+                return RedirectToAction("Show", "Image",new { id = com.PhotoId });
             }
         }
 
@@ -86,10 +86,11 @@ namespace Photo.Controllers
         public ActionResult Delete(int id)
         {
             Comment comment = db.Comments.Find(id);
+            var photoId = comment.PhotoId;
             db.Comments.Remove(comment);
             TempData["message"] = "Comentariu a fost stears!";
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Show", "Image", new { id = photoId });
         }
 
 
