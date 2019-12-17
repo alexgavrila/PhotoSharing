@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
+
 namespace Photo.Models
 {
     public class UserProfile
@@ -20,7 +21,7 @@ namespace Photo.Models
         [Required]
         public string FirstName { get; set; }
         [Required]
-        public string LasteName { get; set; }
+        public string LastName { get; set; }
         
         public string TextProfil { get; set; }
 
