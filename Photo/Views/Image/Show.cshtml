@@ -5,11 +5,14 @@
 <br />
 <div class="row">
     <div class="col-md-9 offset-md-1 mb-2">
-
-        @using (Html.BeginForm(actionName: "Delete", controllerName: "Image", routeValues: new { id = @Model.PhotoId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
+        @if (ViewBag.esteAdmin || Model.UserId == ViewBag.utilizatorCurent)
         {
-            @Html.HttpMethodOverride(HttpVerbs.Delete)
-            <button class="btn rounded-pill btn-sm btn-outline-danger pull-right" type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge Poza</button>
+
+            using (Html.BeginForm(actionName: "Delete", controllerName: "Image", routeValues: new { id = @Model.PhotoId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn rounded-pill btn-sm btn-outline-danger pull-right" type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge Poza</button>
+            }
         }
     </div>
 
@@ -61,13 +64,17 @@
             <p>@comment.CommentText</p>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-5 offset-md-3  border-bottom border-warning">
             <p class=" pull-right">@comment.Date</p>
-            @using (Html.BeginForm(actionName: "Delete", controllerName: "Comment", routeValues: new { id = comment.CommentId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
+            @if (ViewBag.esteAdmin || Model.UserId == ViewBag.utilizatorCurent|| comment.User.Id==ViewBag.utilizatorCurent)
             {
-                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                <button class="btn rounded-pill btn-sm btn-outline-danger " type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge Comentariu</button>
+                using (Html.BeginForm(actionName: "Delete", controllerName: "Comment", routeValues: new { id = comment.CommentId }, method: FormMethod.Post, htmlAttributes: new { @class = "d-inline" }))
+                {
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn rounded-pill btn-sm btn-outline-danger " type="submit"><i class="fa fa-trash-o mr-1"></i>Sterge Comentariu</button>
+                }
             }
         </div>
     </div>

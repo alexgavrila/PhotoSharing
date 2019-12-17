@@ -49,6 +49,15 @@ namespace Photo.Controllers
 
         public ActionResult Show(int id)
         {
+            if (User.IsInRole("Administrator"))
+            {
+                ViewBag.esteAdmin = true;
+            }
+            else
+            {
+                ViewBag.esteAdmin = false;
+            }
+            ViewBag.utilizatorCurent = User.Identity.GetUserId();
             Image image = db.Images.Find(id);
             ViewBag.utilizatorCurent = User.Identity.GetUserId();
             ViewBag.comments = db.Comments.Include("User").Where(a => a.PhotoId == id);
