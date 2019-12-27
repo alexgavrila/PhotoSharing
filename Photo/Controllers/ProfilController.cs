@@ -9,27 +9,20 @@ using Microsoft.AspNet.Identity;
 
 namespace Photo.Controllers
 {
+    [Authorize]
     public class ProfilController : Controller
     {
         // GET: Profil
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
 
 
         public ActionResult New()
         {
-            string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            var userProfile = new UserProfile();
-            userProfile.BirthDate = currentUser.BirthDate;
-            userProfile.FirstName = currentUser.FirstName;
-            userProfile.LastName = currentUser.LastName;
-            userProfile.TextProfil = currentUser.TextProfil;
-            return View(userProfile);
+            
+            UserProfile user = new UserProfile();
+            return View(user);
         }
 
 
@@ -38,26 +31,51 @@ namespace Photo.Controllers
         [HttpPost]
         public ActionResult New(UserProfile user)
         {
-
-            return View(user);
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    currentUser.FirstName = user.FirstName;
+                    currentUser.LastName = user.LastName;
+                    currentUser.BirthDate = user.BirthDate;
+                    currentUser.TextProfil = user.TextProfil;
+                    
+                    db.SaveChanges();
+                    TempData["message"] = "Profil creat!";
+                    return RedirectToAction("Index","Manage");
+                }
+                else
+                {
+                    return View(user);
+                }
+            }
+            catch (Exception e)
+            {
+                return View(user);
+            }
         }
 
-        public ActionResult Show(int id)
+        public ActionResult Show()
         {
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
 
 
 
-            return View();
+            return View(currentUser);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
             return View();
+
+
+
         }
-
-
-
-
 
     }
 }
