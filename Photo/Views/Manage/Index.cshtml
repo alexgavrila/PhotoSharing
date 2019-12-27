@@ -12,21 +12,21 @@
 <p class="text-success">@ViewBag.StatusMessage</p>
 
 <div>
-    <h4>Change your account settings</h4>
+    
     <hr />
     <dl class="dl-horizontal">
 
         @{
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var currentUser = manager.FindById(User.Identity.GetUserId());
-            <p>@currentUser.Name</p>
-            <p>@currentUser.Text</p>
+            <p>@currentUser.FirstName</p>
+            <p>@currentUser.TextProfil</p>
             <p>@currentUser.BirthDate</p>
         }
 
         <div class="row mb-5">
             <div class="col-md-12">
-                <a class="btn btn-secondary btn-lg rounded-pill" href="/Album/Index"><i class="fa fa-camera-retro mr-1"></i>Afisare albume</a>
+                <a class="btn btn-secondary btn-lg rounded-pill" href="/Profil/Edit"><i class="fa fa-edit mr-1"></i>Editare Profil</a>
             </div>
         </div>
 

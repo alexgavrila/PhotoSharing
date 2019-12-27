@@ -26,13 +26,14 @@
 
                 @if (User.IsInRole("Administrator"))
                 {
-                    <li class="nav-item active">@Html.ActionLink("Afisare pozelor", "Index", "Image", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item active">@Html.ActionLink("Afisare poze", "Index", "Image", new { area = "" }, new { @class = "nav-link" })</li>
 
 
                 }
 
                 @if ((Request.IsAuthenticated))
                 {
+                    <li class="nav-item active">@Html.ActionLink("Afisare albume", "Index", "Album", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item active">@Html.ActionLink("Profil", "Index", "Manage", new { area = "" }, new { @class = "nav-link" })</li>
                 }
             </ul>

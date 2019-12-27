@@ -160,7 +160,7 @@ namespace Photo.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     UserManager.AddToRole(user.Id, "User");
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("New", "Profil");
                 }
                 AddErrors(result);
             }
