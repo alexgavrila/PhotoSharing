@@ -4,7 +4,9 @@
         <div class="card-body text-center">
             <h5 class="card-title">@Model.Description</h5>
             <div class="row">
-                <img src="@Url.Content(Model.filePath)" style="width:100%;" />
+                <a href="/image/show/@Model.PhotoId">
+                        <img src="@Url.Content(Model.filePath)" style="width:100%; object-fit: cover; height:250px" />
+                </a>
             </div>
         </div>
     </div>

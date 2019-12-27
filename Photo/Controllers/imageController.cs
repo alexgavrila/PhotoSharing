@@ -49,9 +49,18 @@ namespace Photo.Controllers
 
         public ActionResult Show(int id)
         {
+            if (User.IsInRole("Administrator"))
+            {
+                ViewBag.esteAdmin = true;
+            }
+            else
+            {
+                ViewBag.esteAdmin = false;
+            }
+            ViewBag.utilizatorCurent = User.Identity.GetUserId();
             Image image = db.Images.Find(id);
             ViewBag.utilizatorCurent = User.Identity.GetUserId();
-
+            ViewBag.comments = db.Comments.Include("User").Where(a => a.PhotoId == id);
 
             return View(image);
         }
@@ -171,18 +180,19 @@ namespace Photo.Controllers
         public ActionResult Delete(int id)
         {
             Image image = db.Images.Find(id);
+            var albumId = image.AlbumId;
             if (image.UserId == User.Identity.GetUserId() ||
                 User.IsInRole("Administrator"))
             {
                 db.Images.Remove(image);
                 db.SaveChanges();
                 TempData["message"] = "Imaginea a fost stearsa!";
-                return RedirectToAction("Index");
+                return RedirectToAction("Show", "Album", new { id = albumId});
             }
             else
             {
                 TempData["message"] = "Nu aveti dreptul sa stergeti o imaginea care nu va apartine!";
-                return RedirectToAction("Index");
+                return RedirectToAction("Show", "Image", new { id = id });
             }
 
         }
