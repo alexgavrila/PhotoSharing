@@ -31,5 +31,12 @@ namespace Photo.Controllers
 
             return View();
         }
+
+        public ActionResult Search(string key)
+        {
+            ViewBag.images = db.Images.Include("Category").Include("User").Include("Album").Where(a => a.Description.Contains(key)).OrderBy(a => a.Date).Take(10);
+
+            return View();
+        }
     }
 }

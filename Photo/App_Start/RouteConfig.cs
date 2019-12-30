@@ -17,6 +17,12 @@ namespace Photo
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Search",
+                url: "Home/Search/{key}",
+                defaults: new { controller = "Home", action = "Search"}
+            );
         }
     }
 }
