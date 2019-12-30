@@ -277,6 +277,7 @@
     <Content Include="Views\Profil\Edit.cshtml" />
     <Content Include="Views\Profil\New.cshtml" />
     <Content Include="Views\Profil\Index.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Comment\" />

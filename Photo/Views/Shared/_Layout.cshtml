@@ -38,10 +38,12 @@
                 }
             </ul>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+
+            @using (Html.BeginForm(actionName: "Search", controllerName: "Home", method: FormMethod.Get, htmlAttributes: new { @class = "form-inline my-2 my-lg-0"}))
+            {
+                @Html.TextBox("key", null, new { placeholder = "Descriere", style = "display:inline;", @class = "form-control mr-sm-2" });
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            }
             @Html.Partial("_LoginPartial")
 
         </div>
