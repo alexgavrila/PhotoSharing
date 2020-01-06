@@ -22,6 +22,15 @@ namespace Photo.Controllers
         {
             
             UserProfile user = new UserProfile();
+
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+            user.FirstName = currentUser.FirstName;
+            user.LastName = currentUser.LastName;
+            user.BirthDate = currentUser.BirthDate;
+            user.TextProfil = currentUser.TextProfil;
+
             return View(user);
         }
 
@@ -56,26 +65,5 @@ namespace Photo.Controllers
                 return View(user);
             }
         }
-
-        public ActionResult Show()
-        {
-            string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-
-
-
-            return View(currentUser);
-        }
-
-        public ActionResult Edit()
-        {
-            string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            return View();
-
-
-
-        }
-
     }
 }

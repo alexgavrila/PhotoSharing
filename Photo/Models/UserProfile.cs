@@ -17,7 +17,7 @@ namespace Photo.Models
         [Required]
         [Column(TypeName = "datetime2")]
         public DateTime BirthDate { get; set; }
-
+    
         [Required]
         public string FirstName { get; set; }
         [Required]
